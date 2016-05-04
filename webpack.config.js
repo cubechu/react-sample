@@ -53,12 +53,13 @@ function getPagesNames(dirPath) {
 
     return entries;
 }
+
 module.exports = {
     entry: getPagesNames(__dirname + '/client/js/page'),
 
     output: {
         path: path.join(__dirname, './client/js/export/'),
-        publicPath: "http://127.0.0.1:3010/js/export/",
+        publicPath: "./client/",
         filename: '[name].js'
     },
 
