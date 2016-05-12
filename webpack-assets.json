@@ -1,1 +1,1 @@
-{"default":"default.js","index":"index.js"}
+{"index":["index.js","./client/css/main.css"],"default":"default.js"}
