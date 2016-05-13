@@ -18,22 +18,6 @@ let plugins = [
 ];
 plugins.push(
     new webpack.HotModuleReplacementPlugin(),//启动module的热替换功能
-    new webpack.optimize.UglifyJsPlugin({//压缩JS文件
-        compress: {
-            warnings: false
-        }
-    }),
-    function () {
-        this.plugin("done", function (stats) {
-            let jsonStats = stats.toJson({
-                chunkModules: true
-            });
-            fs.writeFileSync(
-                __dirname + "/webpack-assets.json",
-                JSON.stringify(jsonStats.assetsByChunkName)
-            );
-        });
-    },
     new webpack.optimize.DedupePlugin(),//打包的时候删除重复或者相似的文件
     new webpack.DefinePlugin({//变量定义插件，定义的变量可以在任何页面拿出来用，即使修改后，再次打开页面还是会变回我们定义的变量
         'process.env': {
@@ -53,12 +37,11 @@ function getPagesNames(dirPath) {
 
     return entries;
 }
-
 module.exports = {
-    entry: getPagesNames(__dirname + '/client/js/page'),
+    entry: getPagesNames(path.resolve(__dirname, "../client/js/page")),
 
     output: {
-        path: path.join(__dirname, './client/js/export/'),
+        path: path.join(__dirname, '../client/js/export/'),
         publicPath: "./client/",
         filename: '[name].js'
     },
@@ -69,7 +52,7 @@ module.exports = {
             {
                 loader: "babel-loader",
                 exclude: [
-                    path.resolve(__dirname, "node_modules")
+                    path.resolve(__dirname, "../node_modules")
                 ],
                 test: /\.jsx?$/,
                 query: {
@@ -81,7 +64,7 @@ module.exports = {
             // Load styles
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract("style", "css")
+                loader: "style!css"
             }
         ]
     },

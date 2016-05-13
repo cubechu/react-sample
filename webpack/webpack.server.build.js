@@ -10,7 +10,7 @@ module.exports = function (app) {
     app.use('/js/export', proxy(url.parse('http://localhost:8081/')));
 
     var server = new WebpackDevServer(webpack(config), {
-        contentBase: './client/',
+        contentBase: '../client/',
         hot: true,
         noInfo: false,
         inline: true,
