@@ -29,10 +29,13 @@ plugins.push(
 
 function getPagesNames(dirPath) {
     let filesNames = fs.readdirSync(dirPath);
-    let entries = {};
+    let entries = [
+        'webpack-dev-server/client?http://127.0.0.1:8081',
+        'webpack/hot/dev-server'
+    ];
 
     for (let fileName of filesNames) {
-        entries[fileName.split('.').shift() || fileName] = `${ dirPath }/${ fileName }`;
+        entries.push(`${ dirPath }/${ fileName }`);
     }
 
     return entries;
@@ -42,7 +45,7 @@ module.exports = {
 
     output: {
         path: path.join(__dirname, '../client/js/export/'),
-        publicPath: "./client/",
+        publicPath: "http://localhost:3010/",
         filename: '[name].js'
     },
 
